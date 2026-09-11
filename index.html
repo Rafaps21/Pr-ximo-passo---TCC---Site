@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=BBH+Sans+Bogle&family=Open+Sans:wght@300;400;600;700&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <title>Login</title>
+</head>
+
+<body>
+    <div class="box">
+
+        <form id="form-login">
+
+            <h1>Entrar na Plataforma</h1>
+
+            <div class="input-box">
+                <input
+                    id="email"
+                    name="email"
+                    placeholder="email"
+                    type="email"
+                    required>
+
+                <img
+                    width="20"
+                    height="20"
+                    src="https://img.icons8.com/ios/50/user--v1.png"
+                    alt="user">
+            </div>
+
+            <div class="input-box">
+                <input
+                    id="senha"
+                    name="senha"
+                    placeholder="senha"
+                    type="password"
+                    required>
+
+                <img
+                    width="20"
+                    height="20"
+                    src="https://img.icons8.com/ios-glyphs/30/lock--v1.png"
+                    alt="cadeado">
+
+                <a href="#" id="esqueci-senha">Esqueci minha senha</a>
+            </div>
+
+            <p id="mensagem-erro" class="mensagem-erro"></p>
+
+            <button type="submit" class="submit-button">
+                Entrar
+            </button>
+
+            <div class="register-link">
+                <p>
+                    Não está cadastrado?
+                    <a href="#">Cadastrar</a>
+                </p>
+            </div>
+
+        </form>
+
+    </div>
+
+    <script src="static/auth.js"></script>
+
+</body>
+
+</html>
