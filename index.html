@@ -1,76 +1,158 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<!--
+    ARQUIVO: index.html
+    ---------------------------------------------------------------
+    Página inicial do site "Próximo Passo". É uma página só de
+    apresentação/institucional — não carrega nenhum arquivo .js
+    (repare que não há nenhuma tag <script> no final do <body>),
+    porque não há nada dinâmico aqui: é HTML e CSS puros, com
+    apenas links de navegação para as outras páginas.
+-->
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
+    <!-- Garante que a página se ajuste bem a telas de celular -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="static/style.css">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=BBH+Sans+Bogle&family=Open+Sans:wght@300;400;600;700&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-    <title>Login</title>
+    <title>Próximo Passo | Descubra sua carreira</title>
+    <!-- Folha de estilos compartilhada por TODAS as páginas do site -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-    <div class="box">
 
-        <form id="form-login">
+    <!-- ==========================================================
+         CABEÇALHO (repetido igual em todas as páginas do site)
+         Logo + nome do site à esquerda, menu de navegação à direita
+         ========================================================== -->
+    <header>
+        <div class="logo">
+            <img src="imagens/logo.jpeg" alt="Logo Próximo Passo" class="logo-img">
+            <span>Próximo Passo</span>
+        </div>
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="quiz.html">Quiz</a>
+            <a href="cursos.html">Cursos</a>
+            <a href="comparacao.html">Comparação</a>
+            <a href="perfil.html">Perfil</a>
+        </nav>
+    </header>
 
-            <h1>Entrar na Plataforma</h1>
-
-            <div class="input-box">
-                <input
-                    id="email"
-                    name="email"
-                    placeholder="email"
-                    type="email"
-                    required>
-
-                <img
-                    width="20"
-                    height="20"
-                    src="https://img.icons8.com/ios/50/user--v1.png"
-                    alt="user">
-            </div>
-
-            <div class="input-box">
-                <input
-                    id="senha"
-                    name="senha"
-                    placeholder="senha"
-                    type="password"
-                    required>
-
-                <img
-                    width="20"
-                    height="20"
-                    src="https://img.icons8.com/ios-glyphs/30/lock--v1.png"
-                    alt="cadeado">
-
-                <a href="#" id="esqueci-senha">Esqueci minha senha</a>
-            </div>
-
-            <p id="mensagem-erro" class="mensagem-erro"></p>
-
-            <button type="submit" class="submit-button">
-                Entrar
-            </button>
-
-            <div class="register-link">
+    <main>
+        <!-- ======================================================
+             SEÇÃO "HERO" (banner de destaque logo no topo)
+             Texto de apresentação + botão de call-to-action + imagem
+             ====================================================== -->
+        <section class="hero">
+            <div class="hero-texto">
+                <!-- O <span> dentro do h1 recebe destaque visual
+                     (fundo azul, texto amarelo) via CSS -->
+                <h1>Descubra seu <span>próximo passo</span></h1>
                 <p>
-                    Não está cadastrado?
-                    <a href="#">Cadastrar</a>
+                    Escolher uma profissão não precisa ser um desafio.
+                    O Próximo Passo foi desenvolvido para ajudar estudantes do Ensino Médio
+                    a conhecer cursos superiores, comparar carreiras e descobrir áreas
+                    compatíveis com seus interesses através de um quiz personalizado.
                 </p>
+                <br>
+                <!-- Botão principal que leva direto para o quiz -->
+                <a href="quiz.html" class="btn-principal">Começar o Quiz</a>
             </div>
 
-        </form>
+            <div class="hero-banner">
+                <img src="imagens/banner.jpg" alt="Ilustração de estudante">
+            </div>
+        </section>
 
-    </div>
+        <!-- ======================================================
+             SEÇÃO "Como podemos te ajudar?"
+             3 cartões de atalho para as principais funcionalidades:
+             Quiz, Cursos e Comparação
+             ====================================================== -->
+        <section>
+            <h2>Como podemos te ajudar?</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>📝 Quiz Vocacional</h3>
+                    <p>
+                        Responda algumas perguntas sobre seus interesses,
+                        habilidades e preferências para descobrir quais áreas
+                        combinam mais com você.
+                    </p>
+                    <br>
+                    <a href="quiz.html" class="btn-card">Fazer Quiz</a>
+                </div>
 
-    <script src="static/auth.js"></script>
+                <div class="card">
+                    <h3>🎓 Explorar Cursos</h3>
+                    <p>
+                        Conheça diversas graduações, duração,
+                        modalidade, mercado de trabalho,
+                        faixa salarial e principais áreas de atuação.
+                    </p>
+                    <br>
+                    <a href="cursos.html" class="btn-card">Ver Cursos</a>
+                </div>
+
+                <div class="card">
+                    <h3>⚖️ Comparar Cursos</h3>
+                    <p>
+                        Compare duas graduações lado a lado
+                        para entender as diferenças entre
+                        duração, mercado, salário e perfil profissional.
+                    </p>
+                    <br>
+                    <a href="comparacao.html" class="btn-card">Comparar</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================================================
+             SEÇÃO "Por que utilizar o Próximo Passo?"
+             Bloco institucional com fundo azul (classe
+             .sobre-plataforma), explicando o propósito do projeto
+             ====================================================== -->
+        <section class="sobre-plataforma">
+            <h2>Por que utilizar o Próximo Passo?</h2>
+            <p>
+                Muitas pessoas chegam ao final do Ensino Médio com dúvidas
+                sobre qual profissão seguir.
+                Nossa plataforma foi criada justamente para tornar esse
+                processo mais simples, apresentando informações claras sobre
+                cursos superiores e ajudando na tomada de decisão por meio
+                de um quiz de orientação profissional.
+            </p>
+        </section>
+
+        <!-- ======================================================
+             SEÇÃO "O que você encontrará aqui?"
+             3 cartões simples, sem link, só reforçando os pilares
+             de conteúdo do site (Cursos, Mercado, Carreiras)
+             ====================================================== -->
+        <section>
+            <h2>O que você encontrará aqui?</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>📚 Cursos</h3>
+                    <p>Informações completas sobre diversas graduações.</p>
+                </div>
+                <div class="card">
+                    <h3>📈 Mercado</h3>
+                    <p>Conheça áreas em crescimento e oportunidades profissionais.</p>
+                </div>
+                <div class="card">
+                    <h3>💼 Carreiras</h3>
+                    <p>Descubra quais profissões combinam melhor com seu perfil.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Rodapé, repetido igual em todas as páginas -->
+    <footer>
+        <p>&copy; 2026 - Próximo Passo - Projeto de TCC</p>
+    </footer>
 
 </body>
-
 </html>

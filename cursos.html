@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!--
+    ARQUIVO: cursos.html
+    ---------------------------------------------------------------
+    Página que lista TODOS os cursos do banco de dados (hoje, o mock
+    em js/dados.js). Assim como resultado.html, o HTML aqui é só o
+    "esqueleto" da página — a <div id="cursos-grid"> começa vazia e é
+    preenchida pelo js/pagina-cursos.js assim que os cursos terminam
+    de "carregar".
+-->
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Próximo Passo | Explorar Cursos</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="imagens/logo.jpeg" alt="Logo Próximo Passo" class="logo-img">
+            <span>Próximo Passo</span>
+        </div>
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="quiz.html">Quiz</a>
+            <a href="cursos.html">Cursos</a>
+            <a href="comparacao.html">Comparação</a>
+            <a href="perfil.html">Perfil</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Cabeçalho da página -->
+        <section class="hero-texto" style="margin-bottom: 40px;">
+            <h1>Explore as <span>Profissões</span></h1>
+            <p>
+                Consulte as informações completas extraídas diretamente do nosso banco de dados unificado de cursos e instituições.
+            </p>
+        </section>
+
+        <!-- Os cursos são renderizados dinamicamente pelo js/pagina-cursos.js
+             (que usa a função renderCursoCard definida em js/dados.js).
+             No HTML puro, esta div nasce vazia. -->
+        <div class="grid" id="cursos-grid"></div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 - Próximo Passo - Projeto de TCC</p>
+    </footer>
+
+    <!-- dados.js primeiro (fornece CURSOS, carregarCursos, renderCursoCard
+         e os botões de favoritar/comparar); pagina-cursos.js depois, que
+         é quem efetivamente desenha a grid usando essas funções -->
+    <script src="js/dados.js"></script>
+    <script src="js/pagina-cursos.js"></script>
+</body>
+</html>

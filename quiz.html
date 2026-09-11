@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<!--
+    ARQUIVO: quiz.html
+    ---------------------------------------------------------------
+    Página do Questionário de Exploração da Situação Vocacional.
+
+    Estrutura geral do <form> abaixo:
+      - 20 perguntas "de verdade", divididas em 5 dimensões (4
+        perguntas cada): interesses, habilidades, valores,
+        influencias, exploracao.
+      - 1 pergunta extra (a 21ª) sobre "áreas de interesse", que NÃO
+        entra no cálculo das dimensões — serve só para o site sugerir
+        cursos reais do banco de dados na página de resultado.
+
+    Cada pergunta fica dentro de uma <div class="questoes-bloco">.
+    Por padrão, o CSS deixa TODOS esses blocos com display:none —
+    quem controla qual bloco aparece na tela (um de cada vez, como um
+    "formulário por etapas"), a barra de progresso, e os botões
+    Anterior/Próxima é o script js/pagina-quiz.js, carregado no final
+    deste arquivo.
+
+    Cada bloco tem o atributo data-dimensao="..." — é esse atributo
+    que o script usa para saber a qual das 5 dimensões somar os
+    pontos daquela pergunta quando o quiz é finalizado.
+
+    Dentro de cada bloco:
+      - .dimensao-tag: etiqueta mostrando o nome da dimensão
+      - <h3>: o enunciado da pergunta
+      - .questao-ajuda: um texto de apoio, com exemplos concretos,
+        para ajudar a pessoa a pensar antes de responder
+      - .opcoes: 5 <label><input type="radio">, uma escala de 1
+        ("Não me identifico") a 5 ("Muito"). Todos os radios de uma
+        mesma pergunta compartilham o mesmo "name" (ex: name="p1"),
+        que é o que garante que só uma opção por pergunta pode ficar
+        marcada ao mesmo tempo — esse "name" também é usado como
+        identificador da pergunta quando necessário.
+-->
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Próximo Passo | Quiz Vocacional</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="imagens/logo.jpeg" alt="Logo Próximo Passo" class="logo-img">
+            <span>Próximo Passo</span>
+        </div>
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="quiz.html">Quiz</a>
+            <a href="cursos.html">Cursos</a>
+            <a href="comparacao.html">Comparação</a>
+            <a href="perfil.html">Perfil</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero-texto">
+            <h1>Questionário de Exploração da <span>Situação Vocacional</span></h1>
+            <p>
+                Leia cada afirmação e escolha o quanto ela se parece com você hoje. Não existem respostas
+                certas ou erradas — responda pensando em como você realmente se percebe neste momento,
+                e não no que acha que "deveria" responder.
+            </p>
+        </section>
+
+        <section class="quiz-container">
+            <!-- Barra de progresso: atualizada pelo js/pagina-quiz.js -->
+            <div class="quiz-progresso">
+                <!-- Trilho cinza de fundo -->
+                <div class="quiz-progresso-barra-fundo">
+                    <!-- Barra amarela que cresce conforme a pessoa avança
+                         no quiz. A largura (%) é definida via JavaScript,
+                         não aqui no HTML. -->
+                    <div id="progresso-barra" class="quiz-progresso-barra"></div>
+                </div>
+                <!-- Texto "Pergunta X de 21", também atualizado via JS -->
+                <p id="progresso-texto" class="quiz-progresso-texto">Pergunta 1 de 21</p>
+            </div>
+
+            <form>
+                <!-- Este <form> nunca é "enviado" (submit) de verdade —
+                     não há botão type="submit" nem atributo action.
+                     Ele existe só para agrupar os inputs semanticamente;
+                     toda a navegação e o processamento das respostas é
+                     feito via JavaScript (js/pagina-quiz.js), lendo os
+                     valores marcados diretamente. -->
+
+                <!-- ========================================================
+                     DIMENSÃO 1 - INTERESSES E PREFERÊNCIAS VOCACIONAIS
+                     (perguntas 1 a 4 — data-dimensao="interesses")
+                     ======================================================== -->
+
+                <!-- Pergunta 1 -->
+                <div class="questoes-bloco" data-dimensao="interesses">
+                    <span class="dimensao-tag">Interesses e preferências vocacionais</span>
+                    <h3>1. Consigo identificar os tipos de atividades que mais despertam minha curiosidade.</h3>
+                    <p class="questao-ajuda">Qual situação chamaria mais sua atenção: montar ou consertar algo; investigar por que algo acontece; desenhar ou criar; ensinar ou ajudar; liderar uma ideia; ou organizar dados e materiais?</p>
+                    <!-- Escala de 1 a 5: todos os radios compartilham
+                         name="p1", então só um pode ficar marcado.
+                         O "value" (1 a 5) é o que é somado à dimensão
+                         "interesses" quando o quiz é finalizado. -->
+                    <div class="opcoes">
+                        <label><input type="radio" name="p1" value="1"> 1 - Não me identifico</label>
+                        <label><input type="radio" name="p1" value="2"> 2 - Me identifico pouco</label>
+                        <label><input type="radio" name="p1" value="3"> 3 - Em parte</label>
+                        <label><input type="radio" name="p1" value="4"> 4 - Bastante</label>
+                        <label><input type="radio" name="p1" value="5"> 5 - Muito</label>
+                    </div>
+                </div>
+
+                <!-- Pergunta 2 -->
+                <div class="questoes-bloco" data-dimensao="interesses">
+                    <span class="dimensao-tag">Interesses e preferências vocacionais</span>
+                    <h3>2. Existem assuntos sobre os quais procuro aprender mesmo quando ninguém me obriga.</h3>
+                    <p class="questao-ajuda">Pense em algo que você pesquisa por conta própria: tecnologia, comportamento humano, esporte, saúde, política, animais, jogos, economia, arte, natureza, carros, moda, história ou outro tema.</p>
+                    <div class="opcoes">
+                        <label><input type="radio" name="p2" value="1"> 1 - Não me identifico</label>
+                        <label><input type="radio" name="p2" value="2"> 2 - Me identifico pouco</label>
+                        <label><input type="radio" name="p2" value="3"> 3 - Em parte</label>
+                        <label><input type="radio" name="p2" value="4"> 4 - Bastante</label>
+                        <label><input type="radio" name="p2" value="5"> 5 - Muito</label>
+                    </div>
+                </div>
+
+                <!-- Pergunta 3 -->
+                <div class="questoes-bloco" data-dimensao="interesses">
+                    <span class="dimensao-tag">Interesses e preferências vocacionais</span>
+                    <h3>3. Consigo perceber quais atividades fazem com que eu fique mais envolvido.</h3>
+                    <p class="questao-ajuda">Em um trabalho escolar, você preferiria construir algo, pesquisar, criar a apresentação, escrever, apresentar, ajudar colegas, liderar ou organizar materiais e prazos?</p>
+                    <div class="opcoes">
+                        <label><input type="radio" name="p3" value="1"> 1 - Não me identifico</label>
+                        <label><input type="radio" name="p3" value="2"> 2 - Me identifico pouco</label>
+                        <label><input type="radio" name="p3" value="3"> 3 - Em parte</label>
+                        <label><input type="radio" name="p3" value="4"> 4 - Bastante</label>
+                        <label><input type="radio" name="p3" value="5"> 5 - Muito</label>
+                    </div>
+                </div>
+
+                <!-- Pergunta 4 -->
+                <div class="questoes-bloco" data-dimensao="interesses">
+                    <span class="dimensao-tag">Interesses e preferências vocacionais</span>
+                    <h3>4. Consigo relacionar meus interesses a diferentes possibilidades profissionais.</h3>
+                    <p class="questao-ajuda">Gostar de tecnologia, por exemplo, pode se relacionar a engenharia, saúde, educação, design, comunicação, administração e muitas outras áreas. Você consegue imaginar mais de uma profissão ligada ao que gosta?</p>
+                    <div class="opcoes">
+                        <label><input type="radio" name="p4" value="1"> 1 - Não me identifico</label>
+                        <label><input type="radio" name="p4" value="2"> 2 - Me identifico pouco</label>
+                        <label><input type="radio" name="p4" value="3"> 3 - Em parte</label>
+                        <label><input type="radio" name="p4" value="4"> 4 - Bastante</label>
+                        <label><input type="radio" name="p4" value="5"> 5 - Muito</label>
+                    </div>
+                </div>
+
+                <!-- ========================================================
+                     DIMENSÃO 2 - HABILIDADES PERCEBIDAS E CARACTERÍSTICAS PESSOAIS
+                     (perguntas 5 a 8 — data-dimensao="habilidades")
+                     ======================================================== -->
+
+                <!-- Pergunta 5 -->
+                <div class="questoes-bloco" data-dimensao="habilidades">
+                    <span class="dimensao-tag">Habilidades percebidas e características pessoais</span>
+                    <h3>5. Consigo reconhecer algumas habilidades que já desenvolvi.</h3>
+                    <p class="questao-ajuda">Para que seus colegas costumam pedir sua ajuda? Explicar matéria, organizar o grupo, mexer em tecnologia, escrever, resolver problema, conversar sobre dificuldades, criar algo ou apresentar trabalhos?</p>
+                    <div class="opcoes">
+                        <label><input type="radio" name="p5" value="1"> 1 - Não me identifico</label>
+                        <label><input type="radio" name="p5" value="2"> 2 - Me identifico pouco</label>
+                        <label><input type="radio" name="p5" value="3"> 3 - Em parte</label>
+                        <label><input type="radio" name="p5" value="4"> 4 - Bastante</label>
+                        <label><input type="radio" name="p5" value="5"> 5 - Muito</label>
+                    </div>
+                </div>
+
+                <!-- Pergunta 6 -->
+                <div class="questoes-bloco" data-dimensao="habilidades">
+                    <span class="dimensao-tag">Habilidades percebidas e características pessoais</span>
+                    <h3>6. Consigo diferenciar aquilo de que gosto daquilo que faço com facilidade.</h3>
+                    <p class="questao-ajuda">Você pode gostar de desenhar e ainda estar desenvolvendo essa habilidade; ou ser bom em matemática e não querer trabalhar com isso. Você consegue perceber essa diferença em você?</p>
+                    <div class="opcoes">
+                        <label><input type="radio" name="p6" value="1"> 1 - Não me identifico</label>
+                        <label><input type="radio" name="p6" value="2"> 2 - Me identifico pouco</label>
+                        <label><input type="radio" name="p6" value="3"> 3 - Em parte</label>
+                        <label><input type="radio" name="p6" value="4"> 4 - Bastante</label>
+                        <label><input type="radio" name="p6" value="5"> 5 - Muito</label>
+                    </div>
+                </div>
+
+                <!-- Pergunta 7 -->
+                <div class="questoes-bloco" data-dimensao="habilidades">
+                    <span class="dimensao-tag">Habilidades percebidas e características pessoais</span>
+                    <h3>7. Consigo reconhecer características minhas que aparecem em diferentes situações.</h3>
+                    <p class="questao-ajuda">Em grupo, você costuma criar ideias, pesquisar antes de decidir, organizar, tomar iniciativa, ajudar a resolver conflitos, apresentar ou executar tarefas práticas? Algum comportamento se repete?</p>
+                    <div class="opcoes">
+                        <label><input type="radio" name="p7" value="1"> 1 - Não me identifico</label>
+                        <label><input type="radio" name="p7" value="2"> 2 - Me identifico pouco</label>
+                        <label><input type="radio" name="p7" value="3"> 3 - Em parte</label>
+                        <label><input type="radio" name="p7" value="4"> 4 - Bastante</label>
+                        <label><input type="radio" name="p7" value="5"> 5 - Muito</label>
+                    </div>
+                </div>
+
+                <!-- Pergunta 8 -->
+                <div class="questoes-bloco" data-dimensao="habilidades">
+                    <span class="dimensao-tag">Habilidades percebidas e características pessoais</span>
+                    <h3>8. Consigo identificar habilidades que ainda preciso desenvolver para alcançar meus objetivos.</h3>
+                    <p class="questao-ajuda">Se uma profissão exige falar em público e hoje isso é difícil, você consegue pensar "é uma habilidade que posso desenvolver" em vez de "essa profissão não é para mim"?</p>
+                    <div class="opcoes">
+                        <label><input type="radio" name="p8" value="1"> 1 - Não me identifico</label>
+                        <label><input type="radio" name="p8" value="2"> 2 - Me identifico pouco</label>
+                        <label><input type="radio" name="p8" value="3"> 3 - Em parte</label>
+                        <label><input type="radio" name="p8" value="4"> 4 - Bastante</label>
+                        <label><input type="radio" name="p8" value="5"> 5 - Muito</label>
+                    </div>
+                </div>
+
+                <!-- ========================================================
+                     DIMENSÃO 3 - VALORES, EXPECTATIVAS E PROJETO DE VIDA
+                     (perguntas 9 a 12 — data-dimensao="valores")
+                     ======================================================== -->
+
+                <!-- Pergunta 9 -->
+                <div class="questoes-bloco" data-dimensao="valores">
+                    <span class="dimensao-tag">Valores, expectativas e projeto de vida</span>
+                    <h3>9. Consigo identificar características que considero importantes em um futuro trabalho.</h3>
+                    <p class="questao-ajuda">Se precisasse escolher, o que seria mais importante: salário, estabilidade, autonomia, ajudar pessoas, criatividade, reconhecimento, segurança, contato com pessoas ou flexibilidade?</p>
+                    <div class="opcoes">
+                        <label><input type="radio" name="p9" value="1"> 1 - Não me identifico</label>
+                        <label><input type="radio" name="p9" value="2"> 2 - Me identifico pouco</label>
+                        <label><input type="radio" name="p9" value="3"> 3 - Em parte</label>
+                        <label><input type="radio" name="p9" value="4"> 4 - Bastante</label>
+                        <label><input type="radio" name="p9" value="5"> 5 - Muito</label>
+                    </div>
+                </div>
+
+                <!-- Pergunta 10 -->
+                <div class="questoes-bloco" data-dimensao="valores">
+                    <span class="dimensao-tag">Valores, expectativas e projeto de vida</span>
+                    <h3>10. Consigo pensar no estilo de vida relacionado às profissões que considero.</h3>
+                    <p class="questao-ajuda">Algumas profissões envolvem plantões, viagens, finais de semana, muitos anos de formação, horários flexíveis ou rotina previsível. Você considera essas características?</p>
+                    <div class="opcoes">
+                        <label><input type="radio" name="p10" value="1"> 1 - Não me identifico</label>
+                        <label><input type="radio" name="p10" value="2"> 2 - Me identifico pouco</label>
+                        <label><input type="radio" name="p10" value="3"> 3 - Em parte</label>
+                        <label><input type="radio" name="p10" value="4"> 4 - Bastante</label>
+                        <label><input type="radio" name="p10" value="5"> 5 - Muito</label>
+                    </div>
+                </div>
+
+                <!-- Pergunta 11 -->
+                <div class="questoes-bloco" data-dimensao="valores">
+                    <span class="dimensao-tag">Valores, expectativas e projeto de vida</span>
+                    <h3>11. Consigo imaginar o papel que gostaria que o trabalho tivesse na minha vida adulta.</h3>
+                    <p class="questao-ajuda">Quando pensa em trabalhar no futuro, o que parece mais importante: independência, dinheiro, ajudar, aprender, construir algo, segurança, reconhecimento ou tempo para outros projetos?</p>
+                    <div class="opcoes">
+                        <label><input type="radio" name="p11" value="1"> 1 - Não me identifico</label>
+                        <label><input type="radio" name="p11" value="2"> 2 - Me identifico pouco</label>
+                        <label><input type="radio" name="p11" value="3"> 3 - Em parte</label>
+                        <label><input type="radio" name="p11" value="4"> 4 - Bastante</label>
+                        <label><input type="radio" name="p11" value="5"> 5 - Muito</label>
+                    </div>
+                </div>
+
+                <!-- Pergunta 12 -->
+                <div class="questoes-bloco" data-dimensao="valores">
+                    <span class="dimensao-tag">Valores, expectativas e projeto de vida</span>
+                    <h3>12. Consigo imaginar mais de um caminho para construir um futuro profissional satisfatório.</h3>
+                    <p class="questao-ajuda">Se sua primeira opção de faculdade não fosse possível agora, você conseguiria explorar outros caminhos relacionados aos seus interesses ou sentiria que não existe outra possibilidade?</p>
+                    <div class="opcoes">
+                        <label><input type="radio" name="p12" value="1"> 1 - Não me identifico</label>
+                        <label><input type="radio" name="p12" value="2"> 2 - Me identifico pouco</label>
+                        <label><input type="radio" name="p12" value="3"> 3 - Em parte</label>
+                        <label><input type="radio" name="p12" value="4"> 4 - Bastante</label>
+                        <label><input type="radio" name="p12" value="5"> 5 - Muito</label>
+                    </div>
+                </div>
+
+                <!-- ========================================================
+                     DIMENSÃO 4 - INFLUÊNCIAS E CONTEXTO DA ESCOLHA
+                     (perguntas 13 a 16 — data-dimensao="influencias")
+                     ======================================================== -->
+
+                <!-- Pergunta 13 -->
+                <div class="questoes-bloco" data-dimensao="influencias">
+                    <span class="dimensao-tag">Influências e contexto da escolha</span>
+                    <h3>13. Consigo perceber como minha família influencia minhas ideias sobre profissões.</h3>
+                    <p class="questao-ajuda">Você ouve frases como "essa profissão não dá dinheiro", "deveria fazer Medicina", "concurso é mais seguro" ou "siga a profissão da família"? Como essas falas influenciam você?</p>
+                    <div class="opcoes">
+                        <label><input type="radio" name="p13" value="1"> 1 - Não me identifico</label>
+                        <label><input type="radio" name="p13" value="2"> 2 - Me identifico pouco</label>
+                        <label><input type="radio" name="p13" value="3"> 3 - Em parte</label>
+                        <label><input type="radio" name="p13" value="4"> 4 - Bastante</label>
+                        <label><input type="radio" name="p13" value="5"> 5 - Muito</label>
+                    </div>
+                </div>
+
+                <!-- Pergunta 14 -->
+                <div class="questoes-bloco" data-dimensao="influencias">
+                    <span class="dimensao-tag">Influências e contexto da escolha</span>
+                    <h3>14. Consigo considerar a opinião das outras pessoas sem deixar que elas decidam por mim.</h3>
+                    <p class="questao-ajuda">Se um professor disser "você argumenta muito bem, deveria fazer Direito", você consegue considerar isso como uma pista sobre uma habilidade, sem concluir que necessariamente deve cursar Direito?</p>
+                    <div class="opcoes">
+                        <label><input type="radio" name="p14" value="1"> 1 - Não me identifico</label>
+                        <label><input type="radio" name="p14" value="2"> 2 - Me identifico pouco</label>
+                        <label><input type="radio" name="p14" value="3"> 3 - Em parte</label>
+                        <label><input type="radio" name="p14" value="4"> 4 - Bastante</label>
+                        <label><input type="radio" name="p14" value="5"> 5 - Muito</label>
+                    </div>
+                </div>
+
+                <!-- Pergunta 15 -->
+                <div class="questoes-bloco" data-dimensao="influencias">
+                    <span class="dimensao-tag">Influências e contexto da escolha</span>
+                    <h3>15. Consigo considerar minha realidade quando penso em diferentes caminhos profissionais.</h3>
+                    <p class="questao-ajuda">Você já pensou onde existe o curso, se há universidade pública, bolsas, necessidade de trabalhar enquanto estuda, mudança de cidade ou outras formas de formação?</p>
+                    <div class="opcoes">
+                        <label><input type="radio" name="p15" value="1"> 1 - Não me identifico</label>
+                        <label><input type="radio" name="p15" value="2"> 2 - Me identifico pouco</label>
+                        <label><input type="radio" name="p15" value="3"> 3 - Em parte</label>
+                        <label><input type="radio" name="p15" value="4"> 4 - Bastante</label>
+                        <label><input type="radio" name="p15" value="5"> 5 - Muito</label>
+                    </div>
+                </div>
+
+                <!-- Pergunta 16 -->
+                <div class="questoes-bloco" data-dimensao="influencias">
+                    <span class="dimensao-tag">Influências e contexto da escolha</span>
+                    <h3>16. Consigo questionar imagens idealizadas das profissões apresentadas nas redes sociais.</h3>
+                    <p class="questao-ajuda">Se vê um profissional mostrando salário alto, viagens e rotina perfeita, você procura também conhecer dificuldades, formação, rotina real, áreas de atuação e mercado?</p>
+                    <div class="opcoes">
+                        <label><input type="radio" name="p16" value="1"> 1 - Não me identifico</label>
+                        <label><input type="radio" name="p16" value="2"> 2 - Me identifico pouco</label>
+                        <label><input type="radio" name="p16" value="3"> 3 - Em parte</label>
+                        <label><input type="radio" name="p16" value="4"> 4 - Bastante</label>
+                        <label><input type="radio" name="p16" value="5"> 5 - Muito</label>
+                    </div>
+                </div>
+
+                <!-- ========================================================
+                     DIMENSÃO 5 - EXPLORAÇÃO, DECISÃO E PLANEJAMENTO PROFISSIONAL
+                     (perguntas 17 a 20 — data-dimensao="exploracao")
+                     ======================================================== -->
+
+                <!-- Pergunta 17 -->
+                <div class="questoes-bloco" data-dimensao="exploracao">
+                    <span class="dimensao-tag">Exploração, decisão e planejamento profissional</span>
+                    <h3>17. Busco conhecer diferentes profissões antes de pensar em escolher uma delas.</h3>
+                    <p class="questao-ajuda">Se gosta da área da saúde, por exemplo, conhece diferentes profissões da área ou pensa apenas nas mais conhecidas?</p>
+                    <div class="opcoes">
+                        <label><input type="radio" name="p17" value="1"> 1 - Não me identifico</label>
+                        <label><input type="radio" name="p17" value="2"> 2 - Me identifico pouco</label>
+                        <label><input type="radio" name="p17" value="3"> 3 - Em parte</label>
+                        <label><input type="radio" name="p17" value="4"> 4 - Bastante</label>
+                        <label><input type="radio" name="p17" value="5"> 5 - Muito</label>
+                    </div>
+                </div>
+
+                <!-- Pergunta 18 -->
+                <div class="questoes-bloco" data-dimensao="exploracao">
+                    <span class="dimensao-tag">Exploração, decisão e planejamento profissional</span>
+                    <h3>18. Procuro informações confiáveis sobre as profissões que me interessam.</h3>
+                    <p class="questao-ajuda">Além de TikTok, Instagram e relatos de conhecidos, você procuraria universidades, profissionais da área, sites oficiais, conselhos profissionais e informações sobre cursos?</p>
+                    <div class="opcoes">
+                        <label><input type="radio" name="p18" value="1"> 1 - Não me identifico</label>
+                        <label><input type="radio" name="p18" value="2"> 2 - Me identifico pouco</label>
+                        <label><input type="radio" name="p18" value="3"> 3 - Em parte</label>
+                        <label><input type="radio" name="p18" value="4"> 4 - Bastante</label>
+                        <label><input type="radio" name="p18" value="5"> 5 - Muito</label>
+                    </div>
+                </div>
+
+                <!-- Pergunta 19 -->
+                <div class="questoes-bloco" data-dimensao="exploracao">
+                    <span class="dimensao-tag">Exploração, decisão e planejamento profissional</span>
+                    <h3>19. Consigo comparar diferentes possibilidades antes de tomar uma decisão profissional.</h3>
+                    <p class="questao-ajuda">Se estivesse em dúvida entre três cursos, conseguiria comparar interesses, habilidades, valores, formação, rotina profissional, possibilidades de acesso e áreas de atuação?</p>
+                    <div class="opcoes">
+                        <label><input type="radio" name="p19" value="1"> 1 - Não me identifico</label>
+                        <label><input type="radio" name="p19" value="2"> 2 - Me identifico pouco</label>
+                        <label><input type="radio" name="p19" value="3"> 3 - Em parte</label>
+                        <label><input type="radio" name="p19" value="4"> 4 - Bastante</label>
+                        <label><input type="radio" name="p19" value="5"> 5 - Muito</label>
+                    </div>
+                </div>
+
+                <!-- Pergunta 20 -->
+                <div class="questoes-bloco" data-dimensao="exploracao">
+                    <span class="dimensao-tag">Exploração, decisão e planejamento profissional</span>
+                    <h3>20. Consigo transformar minhas dúvidas sobre o futuro em ações concretas.</h3>
+                    <p class="questao-ajuda">Se estivesse em dúvida entre Psicologia e Direito, conseguiria pensar em ações como conversar com profissionais, pesquisar graduações, conhecer grades curriculares, investigar áreas ou visitar universidades?</p>
+                    <div class="opcoes">
+                        <label><input type="radio" name="p20" value="1"> 1 - Não me identifico</label>
+                        <label><input type="radio" name="p20" value="2"> 2 - Me identifico pouco</label>
+                        <label><input type="radio" name="p20" value="3"> 3 - Em parte</label>
+                        <label><input type="radio" name="p20" value="4"> 4 - Bastante</label>
+                        <label><input type="radio" name="p20" value="5"> 5 - Muito</label>
+                    </div>
+                </div>
+
+                <!-- ========================================================
+                     ÁREAS DE INTERESSE - usado só para sugerir cursos reais
+                     do nosso banco de dados para comparação (não faz parte
+                     das 5 dimensões do questionário de maturidade vocacional)
+
+                     Diferença importante deste bloco para os anteriores:
+                       - tem a classe extra "bloco-areas", usada pelo
+                         JavaScript para saber que este bloco deve ser
+                         tratado de forma diferente (checkbox, não radio;
+                         e não entra na soma das dimensões).
+                       - usa <input type="checkbox"> em vez de radio,
+                         então é possível marcar MAIS DE UMA área ao
+                         mesmo tempo — por isso todos os checkboxes têm
+                         o mesmo name="area", mas cada um pode ser
+                         marcado independentemente.
+                       - o "value" de cada checkbox é o nome da área
+                         exatamente como aparece no campo "area" dos
+                         cursos em js/dados.js (ex: "Tecnologia",
+                         "Humanas"...) — isso é o que permite ao script
+                         da página de resultado filtrar os cursos certos.
+                     ======================================================== -->
+                <div class="questoes-bloco bloco-areas" data-dimensao="areas">
+                    <span class="dimensao-tag">Área de interesse para comparação de cursos</span>
+                    <h3>21. Quais áreas abaixo despertam mais o seu interesse hoje?</h3>
+                    <p class="questao-ajuda">Marque uma ou mais áreas. Essa pergunta não entra no seu mapa de maturidade vocacional acima — ela serve só para sugerirmos cursos reais do nosso banco de dados para você comparar.</p>
+                    <div class="opcoes">
+                        <label><input type="checkbox" name="area" value="Tecnologia"> Tecnologia</label>
+                        <label><input type="checkbox" name="area" value="Humanas"> Humanas</label>
+                        <label><input type="checkbox" name="area" value="Saúde"> Saúde</label>
+                        <label><input type="checkbox" name="area" value="Biológicas"> Biológicas</label>
+                        <label><input type="checkbox" name="area" value="Exatas"> Exatas</label>
+                        <label><input type="checkbox" name="area" value="Criativas"> Criativas</label>
+                    </div>
+                </div>
+
+                <!-- Navegação entre as perguntas, controlada pelo js/pagina-quiz.js.
+                     Repare que os dois são type="button" (não "submit"):
+                     isso impede que cliques neles recarreguem a página —
+                     toda a ação acontece via JavaScript, escutando o
+                     evento de clique de cada um. -->
+                <div class="quiz-nav">
+                    <button type="button" id="btn-anterior" class="btn-secundario">← Anterior</button>
+                    <button type="button" id="btn-proxima" class="btn-principal">Próxima →</button>
+                </div>
+
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 - Próximo Passo - Projeto de TCC</p>
+    </footer>
+
+    <!-- Único script necessário nesta página: controla a navegação
+         entre perguntas e, ao final, calcula e salva o resultado -->
+    <script src="js/pagina-quiz.js"></script>
+</body>
+</html>
