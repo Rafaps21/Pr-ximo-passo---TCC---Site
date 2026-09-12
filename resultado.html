@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!--
+    ARQUIVO: resultado.html
+    ---------------------------------------------------------------
+    Página que mostra o resultado do quiz. Repare que o <main> desta
+    página está quase todo VAZIO no HTML original — só existe uma
+    <div id="resultado-conteudo"> com o texto "Carregando seu
+    resultado...". Todo o conteúdo real (tabela de pontuação, cards
+    de curso recomendado, mapa por dimensão) é montado dinamicamente
+    pelo JavaScript depois que a página carrega — é por isso que esta
+    página precisa de TRÊS scripts no final, nesta ordem específica:
+
+      1. js/dados.js            -> dados e funções dos CURSOS
+      2. js/dados-vocacional.js -> textos e faixas das 5 DIMENSÕES
+      3. js/pagina-resultado.js -> junta os dois de cima com o que foi
+                                    salvo no localStorage pelo quiz, e
+                                    escreve o HTML final na tela
+
+    A ordem importa porque pagina-resultado.js USA funções e
+    variáveis definidas nos dois primeiros arquivos — se ele fosse
+    carregado antes, essas funções ainda não existiriam.
+-->
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Próximo Passo | Resultado do Quiz</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="imagens/logo.jpeg" alt="Logo Próximo Passo" class="logo-img">
+            <span>Próximo Passo</span>
+        </div>
+        <nav>
+            <a href="inicio.html">Início</a>
+            <a href="quiz.html">Quiz</a>
+            <a href="cursos.html">Cursos</a>
+            <a href="comparacao.html">Comparação</a>
+            <a href="perfil.html">Perfil</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Bloco de introdução ao resultado (texto fixo, sempre
+             igual, não depende de JavaScript) -->
+        <section class="sobre-plataforma" style="margin-bottom: 40px;">
+            <h2>Seu Mapa da <span>Situação Vocacional</span></h2>
+            <p style="margin-top: 15px; font-size: 1.1rem;">
+                Este resultado não indica "a profissão certa" para você. Ele mostra o que já está mais claro
+                na sua forma de pensar sobre o futuro e quais pontos ainda merecem ser explorados com mais calma.
+            </p>
+        </section>
+
+        <!-- Estado de carregamento / sem resultado, controlado pelo js/pagina-resultado.js.
+             Este texto "Carregando seu resultado..." é substituído por
+             JavaScript assim que os dados salvos no quiz são lidos e
+             processados. Se a pessoa nunca respondeu ao quiz, o script
+             troca este conteúdo por um convite para fazer o questionário
+             em vez do relatório. -->
+        <div id="resultado-conteudo">
+            <p class="carregando">Carregando seu resultado...</p>
+        </div>
+
+        <!-- Atalho sempre visível para refazer o quiz -->
+        <div class="btn-container">
+            <a href="quiz.html" class="btn-principal">Refazer o Questionário</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 - Próximo Passo - Projeto de TCC</p>
+    </footer>
+
+    <!-- Ordem importa: dados dos cursos, depois dados das dimensões
+         do quiz, e só então o script que combina os dois -->
+    <script src="js/dados.js"></script>
+    <script src="js/dados-vocacional.js"></script>
+    <script src="js/pagina-resultado.js"></script>
+</body>
+</html>
